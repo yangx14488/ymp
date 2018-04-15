@@ -1,0 +1,53 @@
+样式大师有什么用？
+  
+  通过JavaScript让CSS更加强大：自适应，获取CSS没有的数据
+
+  * 增加了一些新的单位：
+
+  * rpx: 根像素
+    > 1rpx = windowWidth / setting.width ;
+    > font-size: 20rpx ;
+
+  * ysw: 屏幕宽
+    > 0.5ysw = 0.5 * windowWidth ;
+    > width: 1ysw ;
+
+  * ysh: 屏幕高
+    > 0.5ysw = 0.5 * windowHeight ;
+    > height: 1ysh ;
+
+
+要启用样式大师，您必须先使用
+
+  <script src="...cssMaster.js"></script>
+
+标签将 cssMaster.js 导入您的站点。
+在导入之后，可以通过 new ycss( OBJECT ) 来激活插件：
+
+  <script>
+    new ycss( {
+      width : 750 ,    // 将所有尺寸屏幕宽度都基于该大小
+      resize : true  ,  // 在窗口大小改变时要重新计算吗
+      success : function( src ){
+                      /* 样式文件加载成功后会调用，src: 成功导入的样式原地址 */
+                    } ,
+      fail : function( src ){
+                      /* 样式文件加载失败后会调用，src: 成功导入的样式原地址 */
+                    } ,
+    } )
+  </script>
+
+
+我该怎么导入css文件？
+
+  <link ycss="css的相对路径(你可以理解为href)" />
+
+
+未来可能会有哪些功能？
+  
+  css将可以获取js发送的数据（类似vue.js的工作模式）
+  处理时会有详细回调函数，可以更好的配合进度条
+  精确匹配
+  可以自定义单位
+  将根据dpi和dpr进行自适应
+  以及更多...
