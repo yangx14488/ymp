@@ -57,7 +57,6 @@
         if ( arguments[0] != "copy" ) {
             return add.call( this, ...arguments ) ;
         }
-        return add.call( this, ( ) => { } ) ;
     } ;
 
     // 监听节点添加
