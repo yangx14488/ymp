@@ -31,8 +31,25 @@
         }
     } ;
 
+    let state = 0 ;
+
+    let time = setInterval( ( ) => {
+        switch ( document.readyState ) {
+            case "complete" :
+                clearInterval( time ) ;
+                loop( document.body.children ) ;
+                ; break ;
+            case "interactive" :
+                if ( state === 0 ) {
+                    state = 1 ;
+                    loop( document.body.children ) ;
+                }
+                ; break ;
+        }
+    }, 1 ) ;
+
     // 取消复制样式
-    function openSelect ( node ) {
+    function openSelect( node ) {
         if ( window.getComputedStyle(node,null)["userSelect"] === "none" ) {
             node.style.userSelect = "text" ;
         } ;
@@ -58,6 +75,7 @@
         if ( arguments[0] != "copy" ) {
             return add.call( this, ...arguments ) ;
         }
+        return add.call( this, "copy", ( ) => true ) ;
     } ;
 
     // 监听节点添加
@@ -74,15 +92,5 @@
     for ( let i in adc ) { HTMLElement.prototype.addEventListener[i] = add[i] ; }
     for ( let i in adc ) { HTMLElement.prototype.appendChild[i] = adc[i] ; }
 
-    try {
-        loop( document.body.children ) ;
-    } catch ( ignore ) {
-    } ;
-
-    // window加载完成
-    window.addEventListener( "load", function( ) {
-        loop( document.body.children ) ;
-        console.log( "已解除反复制功能" ) ;
-    } ) ;
 
 })();
